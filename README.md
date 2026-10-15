@@ -74,3 +74,6 @@ Development branch: feature-vehicle-listing
 ## User Login Feature
 
 This module will allow users to log in to the vehicle rental system.
+## Vehicle Management Feature
+
+This module will allow users to manage vehicle information in the rental system.
