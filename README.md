@@ -66,3 +66,8 @@ vehicle-rental-system/
 | **DELETE** | `/api/vehicles/:id`| **Dynamically delete a vehicle by ID** |
 | **GET** | `/api/rentals` | Retrieve active rentals list |
 | **GET** | `/api/stats` | Retrieve fleet count metrics |
+## Vehicle Listing Feature
+
+This module allows users to view available rental vehicles.
+
+Development branch: feature-vehicle-listing
