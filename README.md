@@ -71,3 +71,6 @@ vehicle-rental-system/
 This module allows users to view available rental vehicles.
 
 Development branch: feature-vehicle-listing
+## User Login Feature
+
+This module will allow users to log in to the vehicle rental system.
