@@ -1,0 +1,178 @@
+{
+  "info": {
+    "name": "Milemark Vehicle Rental System",
+    "description": "Full CRUD collection for the Express vehicle rental server (server.js). Start the server with `node server.js` then import this file into Postman.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" }
+  ],
+  "item": [
+    {
+      "name": "GET - Vehicles",
+      "item": [
+        {
+          "name": "List all vehicles",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/vehicles", "host": ["{{baseUrl}}"], "path": ["api", "vehicles"] }
+          }
+        },
+        {
+          "name": "Filter by type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles?type=Compact",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "vehicles"],
+              "query": [{ "key": "type", "value": "Compact" }]
+            }
+          }
+        },
+        {
+          "name": "Filter by availability",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles?available=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "vehicles"],
+              "query": [{ "key": "available", "value": "true" }]
+            }
+          }
+        },
+        {
+          "name": "Get vehicle by id",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/vehicles/1", "host": ["{{baseUrl}}"], "path": ["api", "vehicles", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET - Rentals & Stats",
+      "item": [
+        {
+          "name": "Active rentals",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/rentals", "host": ["{{baseUrl}}"], "path": ["api", "rentals"] }
+          }
+        },
+        {
+          "name": "Fleet stats",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/stats", "host": ["{{baseUrl}}"], "path": ["api", "stats"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST - Vehicles",
+      "item": [
+        {
+          "name": "Add vehicle (full body)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Audi A4 Quattro\",\n  \"type\": \"Sedan\",\n  \"pricePerDay\": 75,\n  \"seats\": 5,\n  \"gear\": \"AWD\",\n  \"fuel\": \"Petrol\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/vehicles", "host": ["{{baseUrl}}"], "path": ["api", "vehicles"] }
+          }
+        },
+        {
+          "name": "Add vehicle (minimal body)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Royal Enfield Classic 350\",\n  \"type\": \"Bike\",\n  \"pricePerDay\": 30\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/vehicles", "host": ["{{baseUrl}}"], "path": ["api", "vehicles"] }
+          }
+        },
+        {
+          "name": "Validation error (missing name -> 400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"type\": \"Sedan\",\n  \"pricePerDay\": 75\n}" },
+            "url": { "raw": "{{baseUrl}}/api/vehicles", "host": ["{{baseUrl}}"], "path": ["api", "vehicles"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST - Rent a vehicle",
+      "item": [
+        {
+          "name": "Rent vehicle 2",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerName\": \"John Miller\",\n  \"days\": 4,\n  \"pickupLocation\": \"Airport Terminal 2\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/rent/2", "host": ["{{baseUrl}}"], "path": ["api", "rent", "2"] }
+          }
+        },
+        {
+          "name": "Rent vehicle 3 (minimal body)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/api/rent/3", "host": ["{{baseUrl}}"], "path": ["api", "rent", "3"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT - Return a vehicle",
+      "item": [
+        {
+          "name": "Return vehicle 2",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/return/2", "host": ["{{baseUrl}}"], "path": ["api", "return", "2"] }
+          }
+        },
+        {
+          "name": "Return vehicle 6 (seeded Tesla)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/return/6", "host": ["{{baseUrl}}"], "path": ["api", "return", "6"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE - Remove a vehicle",
+      "item": [
+        {
+          "name": "Delete vehicle 6",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/api/vehicles/6", "host": ["{{baseUrl}}"], "path": ["api", "vehicles", "6"] }
+          }
+        },
+        {
+          "name": "Delete unknown id (-> 404)",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{baseUrl}}/api/vehicles/999", "host": ["{{baseUrl}}"], "path": ["api", "vehicles", "999"] }
+          }
+        }
+      ]
+    }
+  ]
+}

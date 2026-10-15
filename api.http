@@ -1,0 +1,151 @@
+### Milemark Vehicle Rental System - REST API reference
+### Works with the VS Code "REST Client" extension (hupmant.rest-client)
+### or with JetBrains IDEs (WebStorm / IntelliJ) built-in HTTP client.
+### Just start the server (node server.js) and click "Send CodeLens" above each block.
+
+@host = http://localhost:3000
+
+
+### ---------------------------------------------------------------
+### GET - List the whole fleet
+### ---------------------------------------------------------------
+GET {{host}}/api/vehicles
+Accept: application/json
+
+### ---------------------------------------------------------------
+### GET - Filter the fleet by class (?type=)
+### try: Compact | Sedan | SUV | Luxury | Bike
+### ---------------------------------------------------------------
+GET {{host}}/api/vehicles?type=Compact
+Accept: application/json
+
+### ---------------------------------------------------------------
+### GET - Only vehicles that are available right now (?available=true)
+### ---------------------------------------------------------------
+GET {{host}}/api/vehicles?available=true
+Accept: application/json
+
+### ---------------------------------------------------------------
+### GET - Combine both filters
+### ---------------------------------------------------------------
+GET {{host}}/api/vehicles?type=SUV&available=true
+Accept: application/json
+
+### ---------------------------------------------------------------
+### GET - Single vehicle by id
+### ---------------------------------------------------------------
+GET {{host}}/api/vehicles/1
+Accept: application/json
+
+### ---------------------------------------------------------------
+### GET - Active rentals list
+### ---------------------------------------------------------------
+GET {{host}}/api/rentals
+Accept: application/json
+
+### ---------------------------------------------------------------
+### GET - Fleet summary stats
+### ---------------------------------------------------------------
+GET {{host}}/api/stats
+Accept: application/json
+
+
+### ---------------------------------------------------------------
+### POST - Add a new vehicle to the fleet
+### Required: name, type, pricePerDay
+### Optional: seats (default 5), gear (default Auto), fuel (default Petrol)
+### ---------------------------------------------------------------
+POST {{host}}/api/vehicles
+Content-Type: application/json
+
+{
+  "name": "Audi A4 Quattro",
+  "type": "Sedan",
+  "pricePerDay": 75,
+  "seats": 5,
+  "gear": "AWD",
+  "fuel": "Petrol"
+}
+
+### ---------------------------------------------------------------
+### POST - Add a bike (minimal body - only the required fields)
+### ---------------------------------------------------------------
+POST {{host}}/api/vehicles
+Content-Type: application/json
+
+{
+  "name": "Royal Enfield Classic 350",
+  "type": "Bike",
+  "pricePerDay": 30
+}
+
+### ---------------------------------------------------------------
+### POST - Validation error demo (missing name -> 400)
+### ---------------------------------------------------------------
+POST {{host}}/api/vehicles
+Content-Type: application/json
+
+{
+  "type": "Sedan",
+  "pricePerDay": 75
+}
+
+### ---------------------------------------------------------------
+### POST - Rent a vehicle (marks it unavailable)
+### Optional: customerName (default "Customer"), days (default 1),
+###           pickupLocation (default "Downtown - Fleet St. Depot")
+### ---------------------------------------------------------------
+POST {{host}}/api/rent/2
+Content-Type: application/json
+
+{
+  "customerName": "John Miller",
+  "days": 4,
+  "pickupLocation": "Airport Terminal 2"
+}
+
+### ---------------------------------------------------------------
+### POST - Rent with a minimal body (server fills the defaults)
+### ---------------------------------------------------------------
+POST {{host}}/api/rent/1
+Content-Type: application/json
+
+{}
+
+
+### ---------------------------------------------------------------
+### PUT - Return a rented vehicle (marks it available again)
+### No body needed.
+### ---------------------------------------------------------------
+PUT {{host}}/api/return/2
+Content-Type: application/json
+
+### ---------------------------------------------------------------
+### PUT - Return the seeded Tesla (rental 101 / vehicle 6)
+### ---------------------------------------------------------------
+PUT {{host}}/api/return/6
+Content-Type: application/json
+
+{}
+
+### ---------------------------------------------------------------
+### PUT - Error demo: unknown id -> 404
+### ---------------------------------------------------------------
+PUT {{host}}/api/return/999
+Content-Type: application/json
+
+{}
+
+
+### ---------------------------------------------------------------
+### DELETE - Delete a vehicle by id
+### Also removes any active rental of that vehicle.
+### ---------------------------------------------------------------
+DELETE {{host}}/api/vehicles/6
+Accept: application/json
+
+### ---------------------------------------------------------------
+### DELETE - Error demo: unknown id -> 404
+### ---------------------------------------------------------------
+DELETE {{host}}/api/vehicles/999
+Accept: application/json
