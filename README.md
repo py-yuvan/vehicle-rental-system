@@ -77,3 +77,7 @@ This module will allow users to log in to the vehicle rental system.
 ## Vehicle Management Feature
 
 This module will allow users to manage vehicle information in the rental system.
+## Vehicle Listing
+
+The Vehicle Rental System displays vehicle information
+to help users explore available rental vehicles.
