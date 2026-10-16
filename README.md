@@ -85,3 +85,6 @@ to help users explore available rental vehicles.
 ## Vehicle Registration
 
 This feature supports registering vehicle details in the Vehicle Rental System.
+## Vehicle Management
+
+This feature allows users to manage vehicle information in the Vehicle Rental System.
