@@ -81,3 +81,7 @@ This module will allow users to manage vehicle information in the rental system.
 
 The Vehicle Rental System displays vehicle information
 to help users explore available rental vehicles.
+
+## Vehicle Registration
+
+This feature supports registering vehicle details in the Vehicle Rental System.
